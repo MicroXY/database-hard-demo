@@ -1,0 +1,17 @@
+2021-05-05 12:58:34,740 - _internal.py[line:113] - INFO: 127.0.0.1 - - [05/May/2021 12:58:34] "[32mPOST /login HTTP/1.1[0m" 302 -
+2021-05-05 12:58:34,754 - _internal.py[line:113] - INFO: 127.0.0.1 - - [05/May/2021 12:58:34] "[37mGET /index HTTP/1.1[0m" 200 -
+2021-05-05 12:58:34,784 - _internal.py[line:113] - INFO: 127.0.0.1 - - [05/May/2021 12:58:34] "[33mGET /assets/plugins/jquery-sparkline/jquery.sparkline.min.js HTTP/1.1[0m" 404 -
+2021-05-05 12:58:38,378 - _internal.py[line:113] - INFO: 127.0.0.1 - - [05/May/2021 12:58:38] "[32mGET /logout HTTP/1.1[0m" 302 -
+2021-05-05 12:58:38,382 - _internal.py[line:113] - INFO: 127.0.0.1 - - [05/May/2021 12:58:38] "[37mGET /login HTTP/1.1[0m" 200 -
+2021-05-05 12:58:45,260 - _internal.py[line:113] - INFO: 127.0.0.1 - - [05/May/2021 12:58:45] "[32mPOST /login HTTP/1.1[0m" 302 -
+2021-05-05 12:58:45,269 - _internal.py[line:113] - INFO: 127.0.0.1 - - [05/May/2021 12:58:45] "[37mGET /index HTTP/1.1[0m" 200 -
+2021-05-05 12:58:45,289 - _internal.py[line:113] - INFO: 127.0.0.1 - - [05/May/2021 12:58:45] "[33mGET /assets/plugins/jquery-sparkline/jquery.sparkline.min.js HTTP/1.1[0m" 404 -
+2021-05-05 12:58:45,327 - _internal.py[line:113] - INFO: 127.0.0.1 - - [05/May/2021 12:58:45] "[33mGET /assets/plugins/jquery-sparkline/jquery.sparkline.min.js HTTP/1.1[0m" 404 -
+2021-05-05 12:59:01,209 - _internal.py[line:113] - INFO: 127.0.0.1 - - [05/May/2021 12:59:01] "[37mGET /info_modification HTTP/1.1[0m" 200 -
+2021-05-05 12:59:01,227 - _internal.py[line:113] - INFO: 127.0.0.1 - - [05/May/2021 12:59:01] "[33mGET /assets/plugins/jquery-sparkline/jquery.sparkline.min.js HTTP/1.1[0m" 404 -
+2021-05-05 12:59:01,268 - _internal.py[line:113] - INFO: 127.0.0.1 - - [05/May/2021 12:59:01] "[33mGET /assets/plugins/jquery-sparkline/jquery.sparkline.min.js HTTP/1.1[0m" 404 -
+2021-05-05 12:59:15,003 - _internal.py[line:113] - INFO: 127.0.0.1 - - [05/May/2021 12:59:15] "[37mGET /manager_user HTTP/1.1[0m" 200 -
+"[37mGET /info_modification HTTP/1.1[0m" 200 -
+2021-05-05 12:59:01,227 - _internal.py[line:113] - INFO: 127.0.0.1 - - [05/May/2021 12:59:01] "[33mGET /assets/plugins/jquery-sparkline/jquery.sparkline.min.js HTTP/1.1[0m" 404 -
+2021-05-05 12:59:01,268 - _internal.py[line:113] - INFO: 127.0.0.1 - - [05/May/2021 12:59:01] "[33mGET /assets/plugins/jquery-sparkline/jquery.sparkline.min.js HTTP/1.1[0m" 404 -
+2021-05-05 12:59:15,003 - _internal.py[line:113] - INFO: 127.0.0.1 - - [05/May/2021 12:59:15] "[37mGET /manager_user HTTP/1.1[0m" 200 -
