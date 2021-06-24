@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="assets/images/favicon.png" type="image/png">
+  <title>吉林大学校招平台</title>
+
+    <!--Begin  Page Level  CSS -->
+    <link href="assets/plugins/morris-chart/morris.css" rel="stylesheet">
+    <link href="assets/plugins/jquery-ui/jquery-ui.min.css" rel="stylesheet"/>
+    <link href="assets/plugins/timepicker/bootstrap-timepicker.min.css" rel="stylesheet">
+    <link href="assets/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css" rel="stylesheet">
+    <link href="assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet">
+    <link href="assets/plugins/clockpicker/css/bootstrap-clockpicker.min.css" rel="stylesheet">
+    <link href="assets/plugins/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+     <!--End  Page Level  CSS -->
+    <link href="assets/css/icons.css" rel="stylesheet">
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/responsive.css" rel="stylesheet">
+    
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+          <script src="js/html5shiv.min.js"></script>
+          <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body class="sticky-header">
+
+
+    <!--Start left side Menu-->
+    <div class="left-side sticky-left-side">
+
+        <!--logo-->
+        <div class="logo">
+            <a href="/index"><img src="assets/images/logo.png" alt=""></a>
+        </div>
+
+        <div class="logo-icon text-center">
+            <a href="/index"><img src="assets/images/logo-icon.png" alt=""></a>
+        </div>
+        <!--logo-->
+
+        <div class="left-side-inner">
+            <!--Sidebar nav-->
+            <ul class="nav nav-pills nav-stacked custom-nav">
+                <li class="menu-list "><a href="#"><i class="icon-home"></i> <span>首页</span></a>
+                    <ul class="sub-menu-list">
+                        <li  class="active"><a href="/index"> 招聘信息</a></li>
+                        <li  class=""><a href="/job_wanted"> 简历库</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-list nav-active"><a href="#"><i class="icon-note"></i> <span>信息</span></a>
+                    <ul class="sub-menu-list">
+                        <li><a href="/info_modification">个人信息发布</a></li>
+                        <li><a href="/modify_self_info">个人发布信息修改</a></li>
+                        <li><a href="/company_info_modification">企业信息发布</a></li>
+                        <li><a href="/company_modify_self_info">企业发布信息修改</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-list"><a href="#"><i class="icon-grid"></i> <span>管理模块</span></a>
+                    <ul class="sub-menu-list">
+                      {% if flags == True %}
+                      <li><a href="/manager_sql/False"><button type="button" class="btn btn-danger btn-block">不安全模式</button></a></li>
+                  {% else %}
+                      <li><a href="/manager_sql/True"><button type="button" class="btn btn-success btn-block">安全模式</button></a></li>
+                  {% endif %}
+                        <li><a href="/manager_user">用户信息管理</a></li>
+                        <li><a href="/manager_info">个人发布信息管理</a></li>
+                        <li><a href="/company_manager_info">企业发布信息管理</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-list"><a href="#"><i class="icon-lock"></i> <span>登陆</span></a>
+                    <ul class="sub-menu-list">
+                       <li><a href="/login"> 登陆 </a></li>
+                       <li><a href="/reset_password"> 忘记密码 </a></li>
+                        <li><a href="/register"> 注册 </a></li>
+                    </ul>
+                </li>
+
+            </ul>
+            <!--End sidebar nav-->
+
+        </div>
+    </div>
+    <!--End left side menu-->
+    
+    
+    <!-- main content start-->
+    <div class="main-content" >
+
+        <!-- header section start-->
+        <div class="header-section">
+
+            <a class="toggle-btn"><i class="fa fa-bars"></i></a>
+
+            <form class="searchform">
+                <input type="text" class="form-control" name="keyword" placeholder="Search here..." />
+            </form>
+
+            <!--notification menu start -->
+            <div class="menu-right">
+                <ul class="notification-menu">
+                    <li>
+                        <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            <img src="assets/images/users/avatar-6.jpg" alt="" />
+                            {{username}}
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
+                          <li> <a href="/logout"> <i class="fa fa-lock"></i> 登出 </a> </li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+            <!--notification menu end -->
+
+        </div>
+        <!-- header section end-->
+
+
+        <!--body wrapper start-->
+        <div class="wrapper">
+              
+          <!--Start Page Title-->
+           <div class="page-title-box">
+                <h4 class="page-title">信息</h4>
+                <div class="clearfix"></div>
+             </div>
+              <!--End Page Title-->          
+                  <!--Start row-->
+                 <div class="row">
+                      <div class="col-md-12">
+                       <div class="white-box">  
+                       <h2 class="header-title">个人信息</h2>
+                       <p class="text-danger">{{error}}</p>
+                         <form class="js-validation-bootstrap form-horizontal" action="/info_modification" method="POST">
+                         <div class="form-group">
+                            <label class="col-md-3 control-label" for="val-name">姓名 </label>
+                            <div class="col-md-9">
+                              <input class="form-control" type="text" id="val-name" name="val-name" placeholder="name">
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label class="col-md-3 control-label" for="val-sex">性别 </label>
+                            <div class="col-md-9">
+                              <select class="form-control" id="val-sex" name="val-sex">
+                                <option value="man">男</option>
+                                <option value="female">女</option>
+                              </select>
+                            </div>
+                          </div>
+                          
+                          <div class="form-group">
+                            <label class="control-label col-md-3 " for="val-birth_time">出生日期 </label>
+                            <div class="col-md-9 ">
+                            <input type="text" class="form-control datepicker-autoclose" placeholder="yyyy/mm/dd" id="" name="birth_time">
+                            </div>
+                          </div>
+
+                          <div class="form-group">
+                            <label class="col-md-3 control-label" for="val-education_background">学历 </label>
+                            <div class="col-md-9">
+                              <input class="form-control" type="text" id="val-education_background" name="val-education_background" placeholder="">
+                            </div>
+                          </div>
+
+                          <div class="form-group">
+                            <label class="control-label col-md-3 " for="val-time_of_graduation">毕业时间 </label>
+                            <div class="col-md-9 ">
+                            <input type="text" class="form-control datepicker-autoclose" placeholder="yyyy/mm/dd" id="" name="time_of_graduation">
+                            </div>
+                          </div>
+                          
+                          <div class="form-group">
+                            <label class="col-md-3 control-label" for="val-school_of_graduation">毕业学校 </label>
+                            <div class="col-md-9">
+                              <input class="form-control" type="text" id="val-school_of_graduation" name="val-school_of_graduation" placeholder="">
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label class="col-md-3 control-label" for="val-major">专业 </label>
+                            <div class="col-md-9">
+                              <input class="form-control" type="text" id="val-major" name="val-major" placeholder="">
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label class="col-md-3 control-label" for="val-phone_number">联系电话 </label>
+                            <div class="col-md-9">
+                              <input class="form-control" type="text" id="val-phone_number" name="val-phone_number" placeholder="">
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label class="col-md-3 control-label" for="val-job_wanted">期望职位 </label>
+                            <div class="col-md-9">
+                              <input class="form-control" type="text" id="val-job_wanted" name="val-job_wanted" placeholder="">
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label class="col-md-3 control-label" for="val-job_time">工作时间 </label>
+                            <div class="col-md-9">
+                              <input class="form-control" type="text" id="val-job_time" name="val-job_time" placeholder="">
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label class="col-md-3 control-label" for="val-salary">期望薪资 </label>
+                            <div class="col-md-9">
+                              <input class="form-control" type="text" id="val-salary" name="val-salary" placeholder="">
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label class="col-md-3 control-label" for="val-suggestions">简历 </label>
+                            <div class="col-md-9">
+                              <textarea class="form-control" id="val-suggestions" name="val-suggestions" rows="14" placeholder="我的简历"></textarea>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            {{ form.csrf_token }}
+                            <div class="col-md-8 col-md-offset-3">
+                              <button class="btn  btn-primary" type="submit">提交</button>
+                              <p class="text-success">{{info}}</p>
+                            </div>
+                          </div>
+                        </form>
+                       </div>
+                    </div>
+
+                 </div>
+                 <!--End row-->
+			   
+			    </div>
+        <!-- End Wrapper-->
+
+
+        <!--Start  Footer -->
+        <footer class="footer-main">Copyright &copy; 2021.吉林大学计算机科学与技术学院.<a target="_blank" href="#"></a></footer>	
+         <!--End footer -->
+
+       </div>
+      <!--End main content -->
+    
+
+
+    <!--Begin core plugin -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/plugins/moment/moment.js"></script>
+    <script  src="assets/js/jquery.slimscroll.js "></script>
+    <script src="assets/js/jquery.nicescroll.js"></script>
+    <script src="assets/js/functions.js"></script>
+    <!-- End core plugin -->
+    
+    <!--Begin Page Level Plugin-->
+	<script src="assets/plugins/morris-chart/morris.js"></script>
+    <script src="assets/plugins/morris-chart/raphael-min.js"></script>
+    <script src="assets/plugins/jquery-sparkline/jquery.sparkline.min.js"></script>
+    <script src="assets/pages/dashboard.js"></script>
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    <script src="assets/plugins/moment/moment.js"></script>
+    <script src="assets/plugins/timepicker/bootstrap-timepicker.js"></script>
+    <script src="assets/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+    <script src="assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+    <script src="assets/plugins/clockpicker/js/bootstrap-clockpicker.min.js"></script>
+    <script src="assets/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
+  <script>
+    // Time Picker
+            jQuery('#timepicker').timepicker({
+                defaultTIme : false
+            });
+            jQuery('#timepicker2').timepicker({
+                showMeridian : false
+            });
+            jQuery('#timepicker3').timepicker({
+                minuteStep : 15
+            });
+            
+            //colorpicker start
+
+            $('.colorpicker-default').colorpicker({
+                format: 'hex'
+            });
+            $('.colorpicker-rgba').colorpicker();
+            
+            // Date Picker
+            jQuery('#datepicker').datepicker();
+
+            $('.datepicker-autoclose').datepicker({
+                format: "yyyy/mm/dd",
+                autoclose: true,
+                todayHighlight: true
+            });
+
+            jQuery('#datepicker-inline').datepicker();
+            jQuery('#datepicker-multiple-date').datepicker({
+                format: "mm/dd/yyyy",
+                clearBtn: true,
+                multidate: true,
+                multidateSeparator: ","
+            });
+            jQuery('#date-range').datepicker({
+                toggleActive: true
+            });
+            
+            //Clock Picker
+            $('.clockpicker').clockpicker({
+                donetext: 'Done'
+            });
+            
+            $('#single-input').clockpicker({
+                placement: 'bottom',
+                align: 'left',
+                autoclose: true,
+                'default': 'now'
+            });
+            $('#check-minutes').click(function(e){
+                // Have to stop propagation here
+                e.stopPropagation();
+                $("#single-input").clockpicker('show')
+                        .clockpicker('toggleView', 'minutes');
+            });
+            
+            
+            //Date range picker
+            $('.input-daterange-datepicker').daterangepicker({
+                buttonClasses: ['btn', 'btn-sm'],
+                applyClass: 'btn-default',
+                cancelClass: 'btn-white'
+            });
+            $('.input-daterange-timepicker').daterangepicker({
+                timePicker: true,
+                timePickerIncrement: 30,
+                locale: {
+                    format: 'MM/DD/YYYY h:mm A'
+                },
+                buttonClasses: ['btn', 'btn-sm'],
+                applyClass: 'btn-default',
+                cancelClass: 'btn-white'
+            });
+            $('.input-limit-datepicker').daterangepicker({
+                format: 'MM/DD/YYYY',
+                minDate: '06/01/2015',
+                maxDate: '06/30/2015',
+                buttonClasses: ['btn', 'btn-sm'],
+                applyClass: 'btn-default',
+                cancelClass: 'btn-white',
+                dateLimit: {
+                    days: 6
+                }
+            });
+    
+            $('#reportrange span').html(moment().subtract(29, 'days').format('MMMM D, YYYY') + ' - ' + moment().format('MMMM D, YYYY'));
+    
+            $('#reportrange').daterangepicker({
+                format: 'MM/DD/YYYY',
+                startDate: moment().subtract(29, 'days'),
+                endDate: moment(),
+                minDate: '01/01/2012',
+                maxDate: '12/31/2015',
+                dateLimit: {
+                    days: 60
+                },
+                showDropdowns: true,
+                showWeekNumbers: true,
+                timePicker: false,
+                timePickerIncrement: 1,
+                timePicker12Hour: true,
+                ranges: {
+                    'Today': [moment(), moment()],
+                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                },
+                opens: 'left',
+                drops: 'down',
+                buttonClasses: ['btn', 'btn-sm'],
+                applyClass: 'btn-default',
+                cancelClass: 'btn-white',
+                separator: ' to ',
+                locale: {
+                    applyLabel: 'Submit',
+                    cancelLabel: 'Cancel',
+                    fromLabel: 'From',
+                    toLabel: 'To',
+                    customRangeLabel: 'Custom',
+                    daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+                    monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                    firstDay: 1
+                }
+            }, function (start, end, label) {
+                console.log(start.toISOString(), end.toISOString(), label);
+                $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+            });
+    </script>
+
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    <!--End Page Level Plugin-->
+   
+
+</body>
+
+</html>

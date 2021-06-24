@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="assets/images/favicon.png" type="image/png">
+  <title>吉林大学校招平台</title>
+
+    <!--Begin  Page Level  CSS -->
+    <link href="assets/plugins/bootstrap-editable/css/bootstrap-editable.css" rel="stylesheet" type="text/css" />
+    <link href="assets/plugins/morris-chart/morris.css" rel="stylesheet">
+    <link href="assets/plugins/jquery-ui/jquery-ui.min.css" rel="stylesheet"/>
+    <link href="assets/plugins/datatables/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css"/>
+    <link href="assets/plugins/datatables/css/jquery.dataTables-custom.css" rel="stylesheet" type="text/css"/>
+     <!--End  Page Level  CSS -->
+    <link href="assets/css/icons.css" rel="stylesheet">
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/responsive.css" rel="stylesheet">
+    
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+          <script src="js/html5shiv.min.js"></script>
+          <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body class="sticky-header">
+
+
+    <!--Start left side Menu-->
+    <div class="left-side sticky-left-side">
+
+        <!--logo-->
+        <div class="logo">
+            <a href="/index"><img src="assets/images/logo.png" alt=""></a>
+        </div>
+
+        <div class="logo-icon text-center">
+            <a href="/index"><img src="assets/images/logo-icon.png" alt=""></a>
+        </div>
+        <!--logo-->
+
+        <div class="left-side-inner">
+            <!--Sidebar nav-->
+            <ul class="nav nav-pills nav-stacked custom-nav">
+                <li class="menu-list"><a href="/index"><i class="icon-home"></i> <span>首页</span></a>
+                    <ul class="sub-menu-list">
+                        <li  class=""><a href="/index"> 招聘信息</a></li>
+                        <li  class=""><a href="/job_wanted"> 简历库</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-list"><a href="#"><i class="icon-note"></i> <span>信息</span></a>
+                    <ul class="sub-menu-list">
+                        <li><a href="/info_modification">个人信息发布</a></li>
+                        <li><a href="/modify_self_info">个人发布信息修改</a></li>
+                        <li><a href="/company_info_modification">企业信息发布</a></li>
+                        <li><a href="/company_modify_self_info">企业发布信息修改</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-list nav-active"><a href="#"><i class="icon-grid"></i> <span>管理模块</span></a>
+                    <ul class="sub-menu-list">
+                        {% if flags == True %}
+                            <li><a href="/manager_sql/False"><button type="button" class="btn btn-danger btn-block">不安全模式</button></a></li>
+                        {% else %}
+                            <li><a href="/manager_sql/True"><button type="button" class="btn btn-success btn-block">安全模式</button></a></li>
+                        {% endif %}
+                        <li><a href="/manager_user">用户信息管理</a></li>
+                        <li><a href="/manager_info">个人发布信息管理</a></li>
+                        <li><a href="/company_manager_info">企业发布信息管理</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-list"><a href="#"><i class="icon-lock"></i> <span>登陆</span></a>
+                    <ul class="sub-menu-list">
+                       <li><a href="/login"> 登陆 </a></li>
+                       <li><a href="/reset_password"> 忘记密码 </a></li>
+                        <li><a href="/register"> 注册 </a></li>
+                    </ul>
+                </li>
+
+            </ul>
+            <!--End sidebar nav-->
+
+        </div>
+    </div>
+    <!--End left side menu-->
+    
+    
+    <!-- main content start-->
+    <div class="main-content" >
+
+        <!-- header section start-->
+        <div class="header-section">
+
+            <a class="toggle-btn"><i class="fa fa-bars"></i></a>
+
+            <form class="searchform">
+                <input type="text" class="form-control" name="keyword" placeholder="Search here..." />
+            </form>
+
+            <!--notification menu start -->
+            <div class="menu-right">
+                <ul class="notification-menu">
+                    <li>
+                        <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            <img src="assets/images/users/avatar-6.jpg" alt="" />
+                            {{username}}
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
+                          <li> <a href="/logout"> <i class="fa fa-lock"></i> 登出 </a> </li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+            <!--notification menu end -->
+
+        </div>
+        <!-- header section end-->
+
+
+        <!--body wrapper start-->
+        <div class="wrapper">
+              
+          <!--Start Page Title-->
+           <div class="page-title-box">
+                <h4 class="page-title">发布信息管理 </h4>
+                <div class="clearfix"></div>
+             </div>
+              <!--End Page Title-->          
+                  <!--Start row-->
+                 <div class="row">
+
+                     
+
+                    <div class="col-md-12">
+                        <div class="white-box">
+                            <h2 class="header-title">个人信息 </h2>
+                            <p class="text-danger">{{error}}</p>
+                             <table id="example" class="table table-bordered table-striped" style="clear: both">
+                             <thead>
+                                    <tr>
+                                      <th>用户名</th>
+                                      <th>用户类型</th>
+                                      <th>电子邮件</th>
+                                      <th>登录次数</th>
+                                      <th>最后登录时间</th>
+                                        <th>删除</th>
+                                    </tr>
+                            </thead>
+                                  <tbody>
+                                    {% for item in manager_user_result %}
+                                    <tr>
+                                      <td ><a href="#" class="inline-manager_name" data-type="text" data-value="" data-pk={{item['sid']}}  class="editable editable-click" style="display: inline;">{{item['username']}}</a></td>
+                                      <td><a href="#" class="inline-manager_user_type" data-type="text" data-value="" data-pk={{item['sid']}}  class="editable editable-click" style="display: inline;">{{item['user_type']}}</a></td>
+                                      <td><a href="#" class="inline-manager_EMail" data-type="email" data-value=""  data-pk={{item['sid']}}  class="editable editable-click">{{item['Email']}}</a></td>
+                                      <td ><a href="#" class="inline-login_num" data-type="text" data-value="" data-pk={{item['sid']}}   style="display: inline;">{{item['login_num']}}</a></td>
+                                      <td><a href="#" class="inline-last_login_time" data-type="combodate" data-value="" data-format="YYYY-MM-DD" data-viewformat="YYYY/MM/DD" data-template="YYYY / MM / DD" data-pk={{item['sid']}}>{{item['last_login_time']}}</a></td>
+                                        <td>
+                                            <form action="/manager_user" method="POST">
+
+                                                <input type="hidden" name="delete" value="delete">
+                                                <input type="hidden" name="pk" value={{item['sid']}}>
+                                                {{ form.csrf_token }}
+                                                <input class="text-danger" type="submit" name="submit" value="删除" >
+                                            </form>
+
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                    
+                                  </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+                 </div>
+                 <!--End row-->
+			   
+			    </div>
+        <!-- End Wrapper-->
+
+
+        <!--Start  Footer -->
+        <footer class="footer-main">Copyright &copy; 2021.吉林大学计算机科学与技术学院.<a target="_blank" href="#"></a></footer>	
+         <!--End footer -->
+
+       </div>
+      <!--End main content -->
+      <script type="text/javascript">
+        var csrf= '{{csrf_token()}}';
+        var urls= '{{URL}}';
+      </script>
+
+
+    <!--Begin core plugin -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/plugins/moment/moment.js"></script>
+    <script  src="assets/js/jquery.slimscroll.js "></script>
+    <script src="assets/js/jquery.nicescroll.js"></script>
+    <script src="assets/js/functions.js"></script>
+    <!-- End core plugin -->
+    
+    <!--Begin Page Level Plugin-->
+      <script src="assets/plugins/bootstrap-editable/js/bootstrap-editable.min.js"></script>
+    <script src="assets/pages/bootstrap-editable-custom.js"></script>
+    <script src="assets/plugins/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="assets/pages/table-data.js"></script>
+    <!--End Page Level Plugin-->
+
+
+</body>
+
+</html>

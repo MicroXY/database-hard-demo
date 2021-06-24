@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="assets/images/favicon.png" type="image/png">
+  <title>吉林大学校招平台</title>
+
+    <!--Begin  Page Level  CSS -->
+    <link href="assets/plugins/bootstrap-editable/css/bootstrap-editable.css" rel="stylesheet" type="text/css" />
+     <!--End  Page Level  CSS -->
+    <link href="assets/css/icons.css" rel="stylesheet">
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/responsive.css" rel="stylesheet">
+    
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+          <script src="js/html5shiv.min.js"></script>
+          <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body class="sticky-header">
+
+
+    <!--Start left side Menu-->
+    <div class="left-side sticky-left-side">
+
+        <!--logo-->
+        <div class="logo">
+            <a href="/index"><img src="assets/images/logo.png" alt=""></a>
+        </div>
+
+        <div class="logo-icon text-center">
+            <a href="/index"><img src="assets/images/logo-icon.png" alt=""></a>
+        </div>
+        <!--logo-->
+
+        <div class="left-side-inner">
+            <!--Sidebar nav-->
+            <ul class="nav nav-pills nav-stacked custom-nav">
+                <li class="menu-list"><a href="/index"><i class="icon-home"></i> <span>首页</span></a>
+                    <ul class="sub-menu-list">
+                        <li  class=""><a href="/index"> 招聘信息</a></li>
+                        <li  class=""><a href="/job_wanted"> 简历库</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-list nav-active"><a href="#"><i class="icon-note"></i> <span>信息</span></a>
+                    <ul class="sub-menu-list">
+                        <li><a href="/info_modification">个人信息发布</a></li>
+                        <li><a href="/modify_self_info">个人发布信息修改</a></li>
+                        <li><a href="/company_info_modification">企业信息发布</a></li>
+                        <li><a href="/company_modify_self_info">企业发布信息修改</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-list"><a href="#"><i class="icon-grid"></i> <span>管理模块</span></a>
+                    <ul class="sub-menu-list">
+                      {% if flags == True %}
+                            <li><a href="/manager_sql/False"><button type="button" class="btn btn-danger btn-block">不安全模式</button></a></li>
+                        {% else %}
+                            <li><a href="/manager_sql/True"><button type="button" class="btn btn-success btn-block">安全模式</button></a></li>
+                        {% endif %}
+                        <li><a href="/manager_user">用户信息管理</a></li>
+                        <li><a href="/manager_info">个人发布信息管理</a></li>
+                        <li><a href="/company_manager_info">企业发布信息管理</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-list"><a href="#"><i class="icon-lock"></i> <span>登陆</span></a>
+                    <ul class="sub-menu-list">
+                       <li><a href="/login"> 登陆 </a></li>
+                       <li><a href="/reset_password"> 忘记密码 </a></li>
+                        <li><a href="/register"> 注册 </a></li>
+                    </ul>
+                </li>
+
+            </ul>
+            <!--End sidebar nav-->
+
+        </div>
+    </div>
+    <!--End left side menu-->
+    
+    
+    <!-- main content start-->
+    <div class="main-content" >
+
+        <!-- header section start-->
+        <div class="header-section">
+
+            <a class="toggle-btn"><i class="fa fa-bars"></i></a>
+
+            <form class="searchform">
+                <input type="text" class="form-control" name="keyword" placeholder="Search here..." />
+            </form>
+
+            <!--notification menu start -->
+            <div class="menu-right">
+                <ul class="notification-menu">
+                    <li>
+                        <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            <img src="assets/images/users/avatar-6.jpg" alt="" />
+                            {{username}}
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
+                          <li> <a href="/logout"> <i class="fa fa-lock"></i> 登出 </a> </li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+            <!--notification menu end -->
+
+        </div>
+        <!-- header section end-->
+
+
+        <!--body wrapper start-->
+        <div class="wrapper">
+              
+          <!--Start Page Title-->
+           <div class="page-title-box">
+                <h4 class="page-title">编辑发布信息 </h4>
+                <div class="clearfix"></div>
+             </div>
+              <!--End Page Title-->      
+        <div class="search-box-top">
+            <form action="/company_modify_self_info" method="POST">
+                <div class="input-group">
+                                  <input name="search" class="form-control input-search" placeholder="搜索..." type="text">
+                                  {{ form.csrf_token }}
+                                    <span class="input-group-btn">
+                                  <button class="btn btn-primary" type="button submit"><i class="fa fa-search"></i></button>
+                                  </span>
+                                </div>
+            </form>
+            </div>
+               <!--Start row-->
+                <div class="row">
+                  <p class="text-danger">{{error}}</p>
+                  {% for item in company_modify_self_info_result %}
+                    <div class="col-md-12">
+
+                        <div class="white-box">
+
+                            <h2 class="header-title">招聘信息 </h2>
+                             <table id="user" class="table table-bordered table-striped" style="clear: both">
+                                  <tbody>
+                                    <tr>
+                                      <td width="35%">公司名</td>
+                                      <td width="65%"><a href="#" class="inline-company_name" data-type="text" data-value="" data-pk={{item['company_id']}}  class="editable editable-click" style="display: inline;">{{item['name']}}</a></td>
+                                    </tr>
+                                    <tr>
+                                      <td width="35%">公司简介</td>
+                                      <td width="65%"><a href="#" class="inline-brief_introduce" data-type="text" data-value="" data-pk={{item['company_id']}}  class="editable editable-click" style="display: inline;">{{item['brief_introduce']}}</a></td>
+                                    </tr>
+                                    <tr>
+                                      <td width="35%">公司地址</td>
+                                      <td width="65%"><a href="#" class="inline-address" data-type="text" data-value="" data-pk={{item['company_id']}}  class="editable editable-click" style="display: inline;">{{item['address']}}</a></td>
+                                    </tr>
+                                    <tr>
+                                      <td width="35%">职位类型</td>
+                                      <td width="65%"><a href="#" class="inline-job_type" data-type="text" data-value="" data-pk={{item['company_id']}}  class="editable editable-click" style="display: inline;">{{item['job_title']}}</a></td>
+                                    </tr>
+                                    <tr>
+                                      <td>截至时间</td>
+                                      <td><a href="#" class="company_dob" data-type="combodate" data-value="" data-format="YYYY-MM-DD" data-viewformat="YYYY/MM/DD" data-template="YYYY / MM / DD" data-pk={{item['company_id']}}  class="editable editable-click">{{item['time_of_end']}}</a></td>
+                                    </tr>
+                                    <tr>
+                                      <td width="35%">工作地点</td>
+                                      <td width="65%"><a href="#" class="inline-workplace" data-type="text" data-value="" data-pk={{item['company_id']}}  class="editable editable-click" style="display: inline;">{{item['workplace']}}</a></td>
+                                    </tr>
+                                    <tr>
+                                      <td width="35%">薪资</td>
+                                      <td width="65%"><a href="#" class="inline-company_salary" data-type="text" data-value="" data-pk={{item['company_id']}}  class="editable editable-click" style="display: inline;">{{item['salary']}}</a></td>
+                                    </tr>
+                                    <tr>
+                                      <td width="35%">联系人</td>
+                                      <td width="65%"><a href="#" class="inline-contact_person" data-type="text" data-value="" data-pk={{item['company_id']}}  class="editable editable-click" style="display: inline;">{{item['contact_person']}}</a></td>
+                                    </tr>
+                                    <tr>
+                                      <td width="35%">联系电话</td>
+                                      <td width="65%"><a href="#" class="inline-company_phone_number" data-type="text" data-value="" data-pk={{item['company_id']}}  class="editable editable-click" style="display: inline;">{{item['phone_number']}}</a></td>
+                                    </tr>
+                                    <tr>
+                                      <td width="35%">招聘人数</td>
+                                      <td width="65%"><a href="#" class="inline-person_num" data-type="text" data-value="" data-pk={{item['company_id']}}  class="editable editable-click" style="display: inline;">{{item['person_num']}}人</a></td>
+                                    </tr>
+                                    <tr>
+                                      <td>招聘条件 <i>ctrl+enter</i></td>
+                                      <td><a href="#" class="inline-company_comments" data-type="textarea" data-pk={{item['company_id']}} data-placeholder="招聘条件..."  class="editable editable-pre-wrapped editable-click">{{item['requirement']}}</a></td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                            <form action="/company_modify_self_info" method="POST">
+
+                                                <input type="hidden" name="delete" value="delete">
+                                                <input type="hidden" name="pk" value={{item['company_id']}}>
+                                                {{ form.csrf_token }}
+                                                <input class="text-danger" type="submit" name="submit" value="删除" >
+                                            </form>
+                        </div>
+                    </div> 
+                  {% endfor %}
+                 </div>
+               <!-- end row --> 
+			   
+			    </div>
+        <!-- End Wrapper-->
+
+
+        <!--Start  Footer -->
+        <footer class="footer-main">Copyright &copy; 2021.吉林大学计算机科学与技术学院.<a target="_blank" href="#"></a></footer>	
+         <!--End footer -->
+
+       </div>
+      <!--End main content -->
+    
+      <script type="text/javascript">
+        var csrf= '{{csrf_token()}}';
+        var urls= '{{URL}}';
+      </script>
+
+    <!--Begin core plugin -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/plugins/moment/moment.js"></script>
+    <script  src="assets/js/jquery.slimscroll.js "></script>
+    <script src="assets/js/jquery.nicescroll.js"></script>
+    <script src="assets/js/functions.js"></script>
+    <!-- End core plugin -->
+
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+  <script src="assets/plugins/bootstrap-editable/js/bootstrap-editable.min.js"></script>
+    <script src="assets/pages/bootstrap-editable-custom.js"></script>
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+   
+
+</body>
+
+</html>

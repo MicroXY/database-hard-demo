@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="assets/images/favicon.png" type="image/png">
+  <title>登录</title>
+   <link href="assets/css/icons.css" rel="stylesheet">
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/responsive.css" rel="stylesheet">
+    
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+          <script src="js/html5shiv.min.js"></script>
+          <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+    <body class="sticky-header">
+      {% extends "base.html" %}
+      {% block content %}
+
+     <!--Start login Section-->
+      <section class="login-section">
+           <div class="container">
+               <div class="row">
+                   <div class="login-wrapper">
+                       <div class="login-inner">
+
+                           <div class="logo">
+                             <img src="assets/images/logo-dark.png"  alt="logo"/>
+                           </div>
+
+                           <h2 class="header-title text-center">登录</h2>
+
+                           <form action="/login" method="POST" name="login">
+                            {{ form.csrf_token }}
+                               <div class="form-group">
+                                {{ form.username.label }}
+                                {{ form.username(class="form-control",placeholder="用户名") }}
+                               </div>
+
+                               <div class="form-group">
+                                {{ form.password.label }}
+                                {{ form.password(class="form-control",placeholder="密码") }}
+                               </div>
+
+                            <div class="form-group">
+                               <div class="pull-left">
+                                <div class="checkbox primary">
+                                  {{ form.remember_me(id="checkbox-2") }}
+                                  <label for="checkbox-2">记住我</label>
+                                </div>
+                               </div>
+
+                               <div class="pull-right">
+                                   <a href="/reset_password" class="a-link">
+                                   <i class="fa fa-unlock-alt"></i> 忘记密码?
+                                   </a>
+                               </div>
+                             </div>
+
+                               <div class="form-group">
+                                   <input type="submit" value="登录" class="btn btn-primary btn-block" >
+                               </div>
+
+                               <div class="form-group text-center">
+                                没有账号?  <a href="/register">注册 </a>
+                               </div>
+                           </form>
+                           <p class="text-danger">{{info}}</p>
+                            <div class="copy-text">
+                             <p class="m-0">2021 &copy; 吉林大学计算机科学与技术学院</p>
+                            </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+      </section>
+     <!--End login Section-->
+
+
+
+
+        <!--Begin core plugin -->
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/js/bootstrap.min.js"></script>
+        <!-- End core plugin -->
+        {% endblock %}
+    </body>
+</html>
